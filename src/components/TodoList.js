@@ -1,40 +1,37 @@
 import React from 'react';
-import { FlatList, Text, View, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import TodoItem from './TodoItem';
 
-const TodoList = ({ todos, toggleComplete, deleteTodo }) => {
-  const completedTodos = todos.filter(todo => todo.completed);
-  const pendingTodos = todos.filter(todo => !todo.completed);
-
+const TodoList = ({ todos, toggleComplete, deleteTodo, navigateToEdit }) => {
   return (
-    <View style={styles.container}>
+    <View>
       <Text style={styles.sectionTitle}>일정 목록</Text>
-      <FlatList
-        data={pendingTodos}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <TodoItem item={item} toggleComplete={toggleComplete} deleteTodo={deleteTodo} />
-        )}
-      />
+      {todos.filter(todo => !todo.completed).map((todo) => (
+        <TodoItem
+          key={todo.id}
+          item={todo}
+          toggleComplete={() => toggleComplete(todo.id)}
+          deleteTodo={() => deleteTodo(todo.id)}
+          editTodo={() => navigateToEdit(todo)}
+        />
+      ))}
       <Text style={styles.sectionTitle}>완료된 목록</Text>
-      <FlatList
-        data={completedTodos}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <TodoItem item={item} toggleComplete={toggleComplete} deleteTodo={deleteTodo} />
-        )}
-      />
+      {todos.filter(todo => todo.completed).map((todo) => (
+        <TodoItem
+          key={todo.id}
+          item={todo}
+          toggleComplete={() => toggleComplete(todo.id)}
+          deleteTodo={() => deleteTodo(todo.id)}
+          editTodo={() => navigateToEdit(todo)}
+        />
+      ))}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-  },
   sectionTitle: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
     marginVertical: 10,
   },

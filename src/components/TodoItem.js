@@ -2,47 +2,50 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Checkbox, IconButton } from 'react-native-paper';
 
-const TodoItem = ({ item, toggleComplete, deleteTodo }) => {
+const TodoItem = ({ item, toggleComplete, deleteTodo, editTodo }) => {
   return (
-    <View style={styles.itemContainer}>
+    <View style={styles.item}>
       <Checkbox
         status={item.completed ? 'checked' : 'unchecked'}
-        onPress={() => toggleComplete(item.id)}
+        onPress={toggleComplete}
       />
       <View style={styles.textContainer}>
-        <Text style={[styles.itemText, item.completed && styles.completed]}>
-          {item.text}
-        </Text>
-        {item.details ? <Text style={styles.itemDetails}>{item.details}</Text> : null}
+        <Text style={[styles.text, item.completed && styles.completed]}>{item.text}</Text>
+        <Text style={[styles.details, item.completed && styles.completed]}>{item.details}</Text>
       </View>
       <IconButton
-        icon="delete"
-        color="red"
+        icon="pencil"
         size={20}
-        onPress={() => deleteTodo(item.id)}
+        onPress={editTodo}
+      />
+      <IconButton
+        icon="delete"
+        size={20}
+        onPress={deleteTodo}
       />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  itemContainer: {
+  item: {
     flexDirection: 'row',
     alignItems: 'center',
     padding: 10,
-    backgroundColor: '#fff',
     marginVertical: 5,
+    backgroundColor: '#fff',
     borderRadius: 5,
     elevation: 1,
   },
   textContainer: {
     flex: 1,
+    marginLeft: 10,
   },
-  itemText: {
-    fontSize: 18,
+  text: {
+    fontSize: 16,
   },
-  itemDetails: {
-    fontSize: 14,
+  details: {
+    fontSize: 12,
     color: 'gray',
   },
   completed: {

@@ -5,7 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/screens/HomeScreen';
 import AddTodoScreen from './src/screens/AddTodoScreen';
 import MemoScreen from './src/screens/MemoScreen';
-
+import EditTodoScreen from './src/screens/EditTodoScreen';
 
 const Stack = createStackNavigator();
 
@@ -16,6 +16,7 @@ export default function App() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="AddTodo" component={AddTodoScreen} />
         <Stack.Screen name="Memo" component={MemoScreen} />
+        <Stack.Screen name="EditTodo" component={EditTodoScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
